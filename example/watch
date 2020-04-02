@@ -10,7 +10,13 @@ daemonize yes
   """ > redis.conf
 
   make 1>/dev/null
-  redis-server redis.conf --loadmodule ./module.so 1>/dev/null
-  redis-cli  -s test.sock EXAMPLE.TEST
-  redis-cli -s test.sock shutdown
+  if test $status -ne 0
+    notify-send 'compilation error'
+  else
+    redis-server redis.conf --loadmodule ./module.so 1>/dev/null
+
+    notify-send (redis-cli  -s test.sock EXAMPLE.TEST)
+
+    redis-cli -s test.sock shutdown
+  end
 end
