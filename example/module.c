@@ -125,8 +125,7 @@ int TestModule(RedisModuleCtx *ctx, RedisModuleString **argv, int argc) {
 int RedisModule_OnLoad(RedisModuleCtx *ctx) {
 
   // Register the module itself
-  if (RedisModule_Init(ctx, "example", 1, REDISMODULE_APIVER_1) ==
-      REDISMODULE_ERR) {
+  if (RedisModule_Init(ctx, "SUGGEST", 1, REDISMODULE_APIVER_1) == REDISMODULE_ERR) {
     return REDISMODULE_ERR;
   }
 
@@ -137,7 +136,7 @@ int RedisModule_OnLoad(RedisModuleCtx *ctx) {
   }
 
   // register example.hgetset - using the shortened utility registration macro
-  RMUtil_RegisterWriteCmd(ctx, "example.hgetset", HGetSetCommand);
+  RMUtil_RegisterWriteCmd(ctx, "suggestsssss.hgetset", HGetSetCommand);
 
   // register the unit test
   RMUtil_RegisterWriteCmd(ctx, "example.test", TestModule);

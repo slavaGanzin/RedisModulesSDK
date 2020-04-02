@@ -1,0 +1,16 @@
+#!/usr/bin/env fish
+
+
+while inotifywait --include "module.c" -qre close_write --format '' .
+  echo """
+port 0
+unixsocket test.sock
+unixsocketperm 777
+daemonize yes
+  """ > redis.conf
+
+  make 1>/dev/null
+  redis-server redis.conf --loadmodule ./module.so 1>/dev/null
+  redis-cli  -s test.sock EXAMPLE.TEST
+  redis-cli -s test.sock shutdown
+end

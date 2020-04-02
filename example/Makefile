@@ -1,4 +1,5 @@
 #set environment variable RM_INCLUDE_DIR to the location of redismodule.h
+
 ifndef RM_INCLUDE_DIR
 	RM_INCLUDE_DIR=../
 endif
@@ -18,7 +19,7 @@ else
 	SHOBJ_CFLAGS ?= -dynamic -fno-common -g -ggdb
 	SHOBJ_LDFLAGS ?= -bundle -undefined dynamic_lookup
 endif
-CFLAGS = -I$(RM_INCLUDE_DIR) -Wall -g -fPIC -lc -lm -std=gnu99  
+CFLAGS = -I$(RM_INCLUDE_DIR) -Wall -g -fPIC -lc -lm -std=gnu99
 CC=gcc
 
 all: rmutil module.so
@@ -27,7 +28,7 @@ rmutil: FORCE
 	$(MAKE) -C $(RMUTIL_LIBDIR)
 
 module.so: module.o
-	$(LD) -o $@ module.o $(SHOBJ_LDFLAGS) $(LIBS) -L$(RMUTIL_LIBDIR) -lrmutil -lc 
+	$(LD) -o $@ module.o $(SHOBJ_LDFLAGS) $(LIBS) -L$(RMUTIL_LIBDIR) -lrmutil -lc
 
 clean:
 	rm -rf *.xo *.so *.o
